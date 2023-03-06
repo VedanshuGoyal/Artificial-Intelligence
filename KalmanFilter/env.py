@@ -70,12 +70,12 @@ def RunEnvironment(trialCount: int, updateTime: int, a_fn, noise: float, estimat
 
         estimator.input(DeepCopy(curstate), target.accel, True) # Read true reading of observation
 
-        # for _ in range(1, updateTime):
-        #     target.update()
-        #     estimator.input(DeepCopy(curstate), target.accel, False) # Now reading unupdated observation
+        for _ in range(1, updateTime):
+            target.update()
+            estimator.input(DeepCopy(curstate), target.accel, False) # Now reading unupdated observation
 
-        # est: State = estimator.get_current_estimate()
-        # act: State = target.state
-        # error += Error(est.position, act.position)
+        est: State = estimator.get_current_estimate()
+        act: State = target.state
+        error += Error(est.position, act.position)
     
     return error/trialCount
